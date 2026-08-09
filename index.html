@@ -36,35 +36,104 @@ h1 {
 
 <div id="timeline"></div>
 
+
 <script>
 
-const sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vSvXDqC7r3Xma30LXAERkqBDHTx12DsjSl5Un-11UR3aVGgo_6KCDKsM-qP3K0NVE4ZFDdoTz5jhh63/pub?gid=0&single=true&output=csv";
+const sheetURL =
+"https://docs.google.com/spreadsheets/d/e/2PACX-1vSvXDqC7r3Xma30LXAERkqBDHTx12DsjSl5Un-11UR3aVGgo_6KCDKsM-qP3K0NVE4ZFDdoTz5jhh63/pub?gid=0&single=true&output=csv";
+    
+async function loadTimeline(){
+
+const response = await fetch(sheetURL);
+
+const data = await response.text();
+console.log(data);
 
 
-fetch(sheetURL)
-    .then(response => response.text())
-    .then(data => {
+const rows = data
+.split("\n")
+.slice(1)
+.map(row => row.split(","));
 
-        alert("Received " + data.length + " characters");
 
-        console.log("RAW DATA:");
-        console.log(data);
+let groups = [];
+let groupIDs={};
 
-        document.body.innerHTML =
-            "<pre style='white-space: pre-wrap;'>" +
-            data.replace(/</g, "&lt;") +
-            "</pre>";
+let events=[];
 
-    })
-    .catch(error => {
 
-        alert("ERROR: " + error);
+rows.forEach((row,index)=>{
 
-        console.error(error);
+let year=row[1];
+let month = row[2];
+let day = row[3]
+let title=row[0];
 
-    });
+if(!year || !title) return;
+
+let date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2,'0')}`;
+let color = row[6];
+let category = row[5] || "Other";
+
+let description=row[4];
+
+
+if(!groupIDs[category]){
+
+groupIDs[category]=groups.length+1;
+
+groups.push({
+
+id:groupIDs[category],
+content:category
+
+});
+
+}
+
+
+events.push({
+
+id:index,
+
+group:groupIDs[category],
+
+content:title,
+
+start:date,
+
+title:description,
+
+style:
+`background:${color};color:white;`
+
+});
+
+
+});
+
+
+new vis.Timeline(
+    document.getElementById("timeline"),
+    new vis.DataSet(events),
+    new vis.DataSet(groups),
+    {
+        stack: true,
+        zoomable: true,
+        moveable: true,
+        orientation: "top",
+        start: "2026-08-01",
+        end: "2027-08-01"
+    }
+);
+
+
+}
+
+loadTimeline();
 
 </script>
+
 
 </body>
 </html>
