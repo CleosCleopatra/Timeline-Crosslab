@@ -37,44 +37,8 @@ h1 {
 <div id="timeline"></div>
 
 <script>
-
-const sheetURL = "PASTE-YOUR-WORKING-CSV-URL-HERE";
-
-async function testSheet() {
-
-    const response = await fetch(sheetURL);
-    const data = await response.text();
-
-    console.log("========== RAW CSV ==========");
-    console.log(data);
-
-    const rows = data
-        .trim()
-        .split("\n")
-        .map(row => row.split(","));
-
-    console.log("========== ROWS ==========");
-    console.log(rows);
-
-    console.log("Number of rows:", rows.length);
-
-    rows.forEach((row, index) => {
-        console.log(
-            "ROW", index,
-            "| Title:", row[0],
-            "| Year:", row[1],
-            "| Month:", row[2],
-            "| Day:", row[3],
-            "| Description:", row[4],
-            "| Category:", row[5],
-            "| Color:", row[6]
-        );
-    });
-
-}
-
-testSheet();
-
+alert("JAVASCRIPT IS RUNNING");
+console.log("JAVASCRIPT IS RUNNING");
 </script>
 
 </body>
