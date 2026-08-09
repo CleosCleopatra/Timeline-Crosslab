@@ -37,8 +37,25 @@ h1 {
 <div id="timeline"></div>
 
 <script>
-alert("JAVASCRIPT IS RUNNING");
-console.log("JAVASCRIPT IS RUNNING");
+alert("1");
+
+const sheetURL = "YOUR_WORKING_CSV_URL";
+
+alert("2");
+
+fetch(sheetURL)
+    .then(response => {
+        alert("3 - fetch response: " + response.status);
+        return response.text();
+    })
+    .then(data => {
+        alert("4 - received " + data.length + " characters");
+        console.log(data);
+    })
+    .catch(error => {
+        alert("ERROR: " + error);
+        console.error(error);
+    });
 </script>
 
 </body>
