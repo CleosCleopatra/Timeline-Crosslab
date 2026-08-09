@@ -39,29 +39,110 @@ h1 {
 
 <script>
 
-const sheetURL = "https://docs.google.com/spreadsheets/d/e/1k2s9GIOZHw3cGzi3nKKOZBFurP6QITysJpS3u3SECEY/pub?output=csv";
+const sheetURL =
+"https://docs.google.com/spreadsheets/d/e/1k2s9GIOZHw3cGzi3nKKOZBFurP6QITysJpS3u3SECEY/pub?output=csv";
+    
+async function loadTimeline(){
 
-fetch(sheetURL)
-    .then(response => {
-        console.log("Response status:", response.status);
-        console.log("Response OK:", response.ok);
-        return response.text();
-    })
-    .then(data => {
-        console.log("GOOGLE SHEET DATA:");
-        console.log(data);
+const response = await fetch(sheetURL);
 
-        document.getElementById("timeline").innerHTML =
-            "<pre>" + data.replace(/</g, "&lt;") + "</pre>";
-    })
-    .catch(error => {
-        console.error("GOOGLE SHEET ERROR:", error);
+const data = await response.text();
+console.log(data);
 
-        document.getElementById("timeline").innerHTML =
-            "<h2>Could not load Google Sheet</h2><pre>" +
-            error +
-            "</pre>";
-    });
+
+const rows = data
+.split("\n")
+.slice(1)
+.map(row => row.split(","));
+
+
+let groups = [];
+let groupIDs={};
+
+let events=[];
+
+
+rows.forEach((row,index)=>{
+
+let year=row[1];
+let month = row[2];
+let day = row[3]
+let title=row[0];
+
+if(!year || !title) return;
+
+let date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2,'0')}`;
+let color = row[6];
+let category=row[5];
+
+let description=row[4];
+
+
+if(!groupIDs[category]){
+
+groupIDs[category]=groups.length+1;
+
+groups.push({
+
+id:groupIDs[category],
+content:category
+
+});
+
+}
+
+
+events.push({
+
+id:index,
+
+group:groupIDs[category],
+
+content:title,
+
+start:date,
+
+title:description,
+
+style:
+`background:${color};color:white;`
+
+});
+
+
+});
+
+
+new vis.Timeline(
+
+document.getElementById("timeline"),
+    {
+
+    items: new vis.DataSet(events),
+
+    groups: new vis.DataSet(groups),
+    },
+    
+{
+
+stack:true,
+
+zoomable:true,
+
+moveable:true,
+
+orientation:"top",
+start: "2026-08-01",
+end: "2027-08-01"
+
+}
+
+);
+
+
+}
+
+loadTimeline();
 
 </script>
 
