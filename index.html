@@ -893,20 +893,6 @@ async function loadTimeline(){
 
                 container.appendChild(title);
 
-                for (const person of group.people) {
-
-                    const personElement = document.createElement("div");
-
-                    personElement.textContent = person;
-
-                    personElement.style.fontSize = "12px";
-                    personElement.style.fontWeight = "normal";
-                    personElement.style.display = "block";
-                    personElement.style.color = "#666";
-
-                    container.appendChild(personElement);
-                }
-
                 return container;
             }
         }
@@ -1179,7 +1165,7 @@ function showEventPopup(event, groups) {
         };
 }
 
-console.log("Test")
+console.log("Testo")
 loadTimeline();
 
 
