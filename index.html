@@ -769,7 +769,7 @@ async function loadTimeline(){
         const today = new Date();
 
         today.setHours(0,0,0,0);
-        eventData.setHours(0,0,0,0);
+        eventDate.setHours(0,0,0,0);
 
         const isOverdue = eventDate < today && done !== "TRUE";
 
