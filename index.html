@@ -771,11 +771,11 @@ async function loadTimeline(){
         today.setHours(0,0,0,0);
         eventDate.setHours(0,0,0,0);
 
-        const isOverdue = eventDate < today && done !== "TRUE";
+        const isOverdue = eventDate < today && event.done !== "TRUE";
 
         let style;
 
-        if (done=="TRUE") {
+        if (event.done=="TRUE") {
             style = `background:${color};color:white;border:4px solid green`;
         }
 
