@@ -741,6 +741,8 @@ async function loadTimeline(){
         let day = row[3]
         let title=row[0];
 
+        let done = row[7]
+
         if(!year || !title) return;
 
         let date = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2,'0')}`;
@@ -771,11 +773,11 @@ async function loadTimeline(){
         today.setHours(0,0,0,0);
         eventDate.setHours(0,0,0,0);
 
-        const isOverdue = eventDate < today && event.done !== "TRUE";
+        const isOverdue = eventDate < today && done !== "TRUE";
 
         let style;
 
-        if (event.done=="TRUE") {
+        if (done=="TRUE") {
             style = `background:${color};color:white;border:4px solid green`;
         }
 
