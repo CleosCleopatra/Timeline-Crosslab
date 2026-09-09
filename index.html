@@ -826,7 +826,7 @@ async function loadTimeline(){
 
         checkbox.checked = true;
 
-        label.appendChile(checkbox);
+        label.appendChild(checkbox);
 
         label.appendChild(
             document.createTextNode(" " + group.name)
@@ -1179,8 +1179,9 @@ function showEventPopup(event, groups) {
         };
 }
 
-
+Logger.log("TEST")
 loadTimeline();
+
 
 </script>
 
