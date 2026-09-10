@@ -1078,7 +1078,13 @@ async function setEventDone(event, done) {
             })
         });
 
+        console.log("response ", response)
+
         const result = await response.json();
+
+
+
+        console.log("result ", result);
 
         if (!result.success) {
             throw new Error(result.error);
@@ -1161,7 +1167,7 @@ function showEventPopup(event, groups) {
         };
 }
 
-console.log("Test")
+console.log("Testo")
 loadTimeline();
 
 
