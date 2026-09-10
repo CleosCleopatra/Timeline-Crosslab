@@ -1043,6 +1043,9 @@ async function loadTimeline(){
                     completed/total * 100
                 );
         
+        display.log(completed)
+        display.log(total)
+        display.log(percentage)
         document.getElementById("progress").textContent = 
             `${completed} of ${total} completed (${percentage}%)`;
     }
