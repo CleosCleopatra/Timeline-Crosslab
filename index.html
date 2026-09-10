@@ -1075,7 +1075,6 @@ async function setEventDone(event, done) {
         console.log("updateURL ", updateURL);
         const response = await fetch(updateURL, {
             method: "POST",
-            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 row:event.sheetRow,
                 done: done
@@ -1171,7 +1170,7 @@ function showEventPopup(event, groups) {
         };
 }
 
-console.log("Testa")
+console.log("Test")
 loadTimeline();
 
 
