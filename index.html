@@ -1070,9 +1070,12 @@ async function loadTimeline(){
 
 async function setEventDone(event, done) {
     try{
-        console.log(done);
+        console.log("done ", done);
+        console.log("sheet row ", event.sheetRow);
+        console.log("updateURL ", updateURL);
         const response = await fetch(updateURL, {
             method: "POST",
+            headers: { "Content-Type": "application/json" },
             body: JSON.stringify({
                 row:event.sheetRow,
                 done: done
@@ -1168,7 +1171,7 @@ function showEventPopup(event, groups) {
         };
 }
 
-console.log("Test")
+console.log("Testa")
 loadTimeline();
 
 
