@@ -1068,7 +1068,7 @@ async function loadTimeline(){
 
 }
 
-async function setEventDone(event, done) {
+async function setEventDone(event, done, items) {
     console.log("done ", done);
     console.log("sheet row ", event.sheetRow);
     console.log("updateURL ", updateURL);
@@ -1097,6 +1097,18 @@ async function setEventDone(event, done) {
         event.done = done;
 
         console.log("Successfully updated row", event.sheetRow);
+
+        items.update({
+            id: event.id,
+            content: done
+                ? "✓ " + event.content.replace("✓ ", "")
+                : event.content.replace("✓ ", ""),
+            style: done
+                ? `background:${event.color};color:white;border:4px solid green`
+                : event.style
+        });
+
+
 
         location.reload();
     } catch (error) {
@@ -1168,12 +1180,13 @@ function showEventPopup(event, groups) {
         function() {
             setEventDone(
                 event, 
-                !event.done
+                !event.done,
+                items
             );
         };
 }
 
-console.log("Test")
+console.log("Testo")
 loadTimeline();
 
 
