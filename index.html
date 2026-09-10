@@ -81,13 +81,6 @@ h1 {
     display: block;
 }
 
-.group-person {
-    display: block;
-    font-size: 12px !important;
-    font-weight: normal !important;
-    line-height: 1.25;
-    color: #666;
-}
 
 .group-title {
     display: block;
@@ -106,13 +99,6 @@ h1 {
     font-weight: normal;
     color: #666;
     line-height: 1.25;
-}
-
-.person-line {
-    display: block;
-    font-size: 12px;
-    font-weight: normal;
-    margin: 0;
 }
 
 .topbar {
@@ -1045,12 +1031,14 @@ async function loadTimeline(){
                 : Math.round(
                     completed/total * 100
                 );
+
+                document.getElementById("progress").textContent = 
+                    `${completed} of ${total} completed (${percentage}%)`;
         
         console.log(completed)
         console.log(total)
         console.log(percentage)
-        document.getElementById("progress").textContent = 
-            `${completed} of ${total} completed (${percentage}%)`;
+
     }
 
     document.getElementById("fullWindow").onclick = function() {
