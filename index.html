@@ -335,7 +335,7 @@ const sheetURL =
 const updateURL = 
 "https://script.google.com/macros/s/AKfycbxQFHIQo9lm-v6rSSdS19aN7spiV-J7x5EgBvqV2Oy0lQdLlgTavOODO4NMcHqpv40GTA/exec"
 
-
+let items; 
 
 function showMeetingView(events, groups) {
     const container = 
@@ -799,6 +799,8 @@ async function loadTimeline(){
 
             style: style,
 
+            color: color,
+
             done: done == "TRUE"
         });
 
@@ -856,7 +858,7 @@ async function loadTimeline(){
     let current_month = current_date.getMonth() + 1;
     let current_year = current_date.getFullYear();
 
-    const items = new vis.DataSet(events);
+    items = new vis.DataSet(events);
     const groupItems = new vis.DataSet(groups);
 
     const timeline = new vis.Timeline(
@@ -1110,7 +1112,7 @@ async function setEventDone(event, done, items) {
 
 
 
-        location.reload();
+        //location.reload();
     } catch (error) {
         console.error(error);
 
@@ -1186,7 +1188,7 @@ function showEventPopup(event, groups) {
         };
 }
 
-console.log("Testo")
+console.log("Test")
 loadTimeline();
 
 
