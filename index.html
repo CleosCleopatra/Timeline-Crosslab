@@ -371,7 +371,7 @@ function showMeetingView(events, groups) {
 
     const todayDate = new Date(today);
 
-    const defaultNextMeeting = newDate(today + 1)
+    const defaultNextMeeting = new Date(today + 1)
 
     while (defaultNextMeeting.getDay() != 3){
         defaultNextMeeting.setDate(defaultNextMeeting + 1)
