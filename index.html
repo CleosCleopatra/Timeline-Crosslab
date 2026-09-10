@@ -1077,11 +1077,21 @@ async function setEventDone(event, done, items) {
     try{
         const response = await fetch(updateURL, {
             method: "POST",
+            mode: "no-cors",
             body: JSON.stringify({
                 row:event.sheetRow,
                 done: done
             })
         });
+
+        event.done = done;
+
+        const today = new Date();
+        const startDate = new Date(event.start);
+
+        let newStyle;
+
+
 
         console.log("HTTP status:", response.status);
         console.log("response ", response)
@@ -1096,7 +1106,15 @@ async function setEventDone(event, done, items) {
             throw new Error(result.error);
         }
 
-        event.done = done;
+        if (done) {
+            newStyle = `background:${event.color};color:white;border:4px solid green`;
+        }else if (startDate < today) { // Incomplete + overdue = red border 
+            newStyle = `background:${event.color};color:white;border:4px solid red`; }
+        else{
+            newStyle = `background:${event.color};color:white;border:1px solid ${event.color}`;
+        }
+
+
 
         console.log("Successfully updated row", event.sheetRow);
 
@@ -1105,10 +1123,10 @@ async function setEventDone(event, done, items) {
             content: done
                 ? "✓ " + event.content.replace("✓ ", "")
                 : event.content.replace("✓ ", ""),
-            style: done
-                ? `background:${event.color};color:white;border:4px solid green`
-                : event.style
+            style: newStyle
         });
+
+        event.style = newStyle;
 
 
 
@@ -1188,7 +1206,7 @@ function showEventPopup(event, groups) {
         };
 }
 
-console.log("Test")
+console.log("Testa")
 loadTimeline();
 
 
