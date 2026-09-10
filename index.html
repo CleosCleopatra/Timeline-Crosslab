@@ -357,6 +357,8 @@ function showMeetingView(events, groups) {
     
     const progress = 
         document.getElementById("progress");
+
+    display.log(progress);
     
     const topbar = 
         document.querySelector(".topbar");
@@ -898,7 +900,7 @@ async function loadTimeline(){
         }
     );
 
-    await new Promise(requestAnimationFrame)
+    await new Promise(requestAnimationFrame);
 
     updateProgress(events);
 
@@ -1041,8 +1043,8 @@ async function loadTimeline(){
                     completed/total * 100
                 );
         
-                document.getElementById("progress").textContent = 
-                    `${completed} of ${total} completed (${percentage}%)`;
+        document.getElementById("progress").textContent = 
+            `${completed} of ${total} completed (${percentage}%)`;
     }
 
     document.getElementById("fullWindow").onclick = function() {
@@ -1165,7 +1167,7 @@ function showEventPopup(event, groups) {
         };
 }
 
-console.log("Testo")
+console.log("Test")
 loadTimeline();
 
 
