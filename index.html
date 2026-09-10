@@ -1073,9 +1073,9 @@ async function loadTimeline(){
 async function setEventDone(event, done, items) {
     console.log("done ", done);
     console.log("sheet row ", event.sheetRow);
-    console.log("updateURL ", updateURL);
+
     try{
-        const response = await fetch(updateURL, {
+        await fetch(updateURL, {
             method: "POST",
             mode: "no-cors",
             body: JSON.stringify({
@@ -1091,20 +1091,6 @@ async function setEventDone(event, done, items) {
 
         let newStyle;
 
-
-
-        console.log("HTTP status:", response.status);
-        console.log("response ", response)
-
-        const text = await response.text();
-        console.log("Raw response:", text);
-        const result = JSON.parse(text);
-
-        console.log("result ", result);
-
-        if (!result.success) {
-            throw new Error(result.error);
-        }
 
         if (done) {
             newStyle = `background:${event.color};color:white;border:4px solid green`;
