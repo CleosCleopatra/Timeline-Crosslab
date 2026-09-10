@@ -1069,10 +1069,10 @@ async function loadTimeline(){
 }
 
 async function setEventDone(event, done) {
+    console.log("done ", done);
+    console.log("sheet row ", event.sheetRow);
+    console.log("updateURL ", updateURL);
     try{
-        console.log("done ", done);
-        console.log("sheet row ", event.sheetRow);
-        console.log("updateURL ", updateURL);
         const response = await fetch(updateURL, {
             method: "POST",
             body: JSON.stringify({
@@ -1081,11 +1081,12 @@ async function setEventDone(event, done) {
             })
         });
 
+        console.log("HTTP status:", response.status);
         console.log("response ", response)
 
-        const result = await response.json();
-
-
+        const text = await response.text();
+        console.log("Raw response:", text);
+        const result = JSON.parse(text);
 
         console.log("result ", result);
 
@@ -1095,7 +1096,9 @@ async function setEventDone(event, done) {
 
         event.done = done;
 
-        location.reload();
+        console.log("Successfully updated row", event.sheetRow);
+
+        //location.reload();
     } catch (error) {
         console.error(error);
 
@@ -1170,7 +1173,7 @@ function showEventPopup(event, groups) {
         };
 }
 
-console.log("Test")
+console.log("Testa")
 loadTimeline();
 
 
