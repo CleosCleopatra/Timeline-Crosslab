@@ -369,11 +369,13 @@ function showMeetingView(events, groups) {
         return date < today && !event.done;
     });
 
-    const defaultNextMeeting = new Date(today);
+    const todayDate = new Date(today);
 
-    defaultNextMeeting.setDate(
-        defaultNextMeeting.getDate() + 31
-    );
+    const defaultNextMeeting = newDate(today + 1)
+
+    while (defaultNextMeeting.getDay() != 3){
+        defaultNextMeeting.setDate(defaultNextMeeting + 1)
+    }
 
     function renderMeetingView(nextMeeting) {
         const dueBeforeNextMeeting = 
