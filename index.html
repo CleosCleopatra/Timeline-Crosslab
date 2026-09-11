@@ -1084,7 +1084,7 @@ async function setEventDone(event, done, items, groups) {
     const today = new Date();
     today.setHours(0,0,0,0);
 
-    const startDate = newDate(event.start);
+    const startDate = new Date(event.start);
     startDate.setHours(0,0,0,0);
 
     let newStyle;
